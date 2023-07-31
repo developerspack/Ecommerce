@@ -22,7 +22,7 @@ const MainHeader = () => {
   const [sidebar, setSidebar] = useState(false);
 
   const ListenScrollEvent = () => {
-    window.scrollY > 10 ? setNavColor("#13131a") : setNavColor("transparent");
+    window.scrollY > 5 ? setNavColor("#13131a") : setNavColor("transparent");
   };
 
   useEffect(() => {

@@ -1,13 +1,18 @@
 import Head from "next/head";
 
 import {
+  Banner,
+  Brand,
   CategoryHeader,
   ContactHeader,
   FooterHeader,
   MainHeader,
+  NewArrivals,
 } from "@/components";
+import FetchCollection from "@/Hooks/FetchCollection";
 
 export default function Home() {
+  const { data: banner } = FetchCollection("banner");
   return (
     <div className="text-white">
       <Head>
@@ -18,6 +23,13 @@ export default function Home() {
         <ContactHeader />
         <MainHeader />
         <CategoryHeader />
+        {banner.map((item) => (
+          <div key={item.id}>
+            <Banner {...item} />
+          </div>
+        ))}
+        <Brand />
+        <NewArrivals />
         <FooterHeader />
       </div>
     </div>

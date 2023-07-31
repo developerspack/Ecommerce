@@ -2,6 +2,7 @@ import UploadBanner from "@/components/upload/UploadBanner";
 import UploadBrand from "@/components/upload/UploadBrand";
 import UploadCategory from "@/components/upload/UploadCategory";
 import UploadProducts from "@/components/upload/UploadProducts";
+import UploadReviews from "@/components/upload/UploadReviews";
 
 const UploadItems = () => {
   return (
@@ -14,6 +15,7 @@ const UploadItems = () => {
         <UploadBrand />
         <UploadCategory />
         <UploadProducts />
+        <UploadReviews />
       </div>
     </div>
   );

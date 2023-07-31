@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+.countdownBox {
+  @apply w-[34px] h-[34px] p-2 bg-primary rounded-lg text-black text-lg font-semibold flex
+  justify-center items-center;
+}
+
 body {
   font-family: sans-serif;
   font-size: 16px;
