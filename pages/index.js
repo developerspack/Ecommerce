@@ -5,6 +5,8 @@ import {
   Brand,
   CategoryHeader,
   ContactHeader,
+  FeaturedProducts,
+  Footer,
   FooterHeader,
   MainHeader,
   NewArrivals,
@@ -30,6 +32,8 @@ export default function Home() {
         ))}
         <Brand />
         <NewArrivals />
+        <FeaturedProducts />
+        <Footer />
         <FooterHeader />
       </div>
     </div>

@@ -1,7 +1,7 @@
 import { Rating } from "@mui/material";
 import Image from "next/image";
-import { AiFillStar } from "react-icons/ai";
 import { useRouter } from "next/router";
+import { AiFillStar } from "react-icons/ai";
 
 const DealCard = ({
   id,
@@ -9,7 +9,6 @@ const DealCard = ({
   Price,
   Discount,
   productNo,
-  Category,
   Description,
   Brand,
   imageUrl,
@@ -17,34 +16,26 @@ const DealCard = ({
   reviewers,
 }) => {
   const router = useRouter();
-
   return (
     <div>
       <div className="my-2">
-        {/* product and brand */}
+        {/* product no and brand */}
         <div className="flex justify-between">
-          <h3 className="clipper-1 text-2xl">{Brand}</h3>
+          <h3 className="text-2xl line-clamp-1">{Brand}</h3>
           {productNo <= 0 ? (
-            <div
-              className="bg-red-500 text-black text-sm font-bold px-2 py-1 rounded-lg 
-                 w-20"
-            >
-              OUT Of STOCK
+            <div className="bg-red-500 text-black text-sm font-bold px-2 py-1 rounded-lg">
+              Out of Stock
             </div>
           ) : (
-            <div
-              className="bg-green-400 text-black text-sm font-bold p-2 rounded-lg 
-                   w-20"
-            >
-              INSTOCK
+            <div className="bg-green-500 text-black text-base font-bold px-2 py-1 rounded-lg">
+              In Stock
             </div>
           )}
         </div>
         {/* name */}
-        <p className="clipper-1 text-xl">{Name}</p>
+        <p className="line-clamp-1 text-xl">{Name}</p>
       </div>
-
-      {/* image and discount*/}
+      {/* image and discount */}
       <div
         className="relative h-[360px] cursor-pointer"
         onClick={() => router.push(`/productDetails/${id}`)}
@@ -55,34 +46,33 @@ const DealCard = ({
           height={500}
           className="rounded-lg w-full h-full"
         />
+
         <span className="absolute text-gray-600 right-2 top-2 bg-white p-2 rounded-lg">
           {((Discount / Price) * 100).toFixed(0)}%
         </span>
       </div>
-
-      {/* rating price */}
+      {/* rating */}
       <div className="flex justify-between mt-2 mb-2">
-        <div className="">
-          <p className="text-lg">Price :</p>
+        <div>
+          <p className="text-lg">Price:</p>
           <p className="text-xl font-semibold">Ksh.{Price}</p>
         </div>
-        <div className="items-center flex">
+        <div className="flex items-center">
           <Rating
             value={rating}
             readOnly
             precision={0.5}
             emptyIcon={<AiFillStar className="text-white" fontSize="inherit" />}
           />
-          <span className="text-gray-400 ml-1">({reviewers})</span>
+          <span>({reviewers})</span>
         </div>
       </div>
-      {/* descrption */}
-      <div className="clipper-2 mb-3">{Description}</div>
-      {/* cart button */}
+      {/* description */}
+      <div className="line-clamp-2 mb-3">{Description}</div>
       <div
-        className="text-center pt-3 text-black tracking-wide text-xl font-bold cursor-pointer 
-          w-full h-12 bg-primary rounded-lg mt-4"
-        onClick={() => addItemToCart()}
+        className="text-center pt-3 text-black tracking-wide  text-xl font-bold cursor-pointer
+        w-full h-12 bg-primary rounded-lg mt-4"
+        onClick={() => {}}
       >
         Add To Cart
       </div>

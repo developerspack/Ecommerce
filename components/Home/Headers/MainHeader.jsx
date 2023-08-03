@@ -9,9 +9,11 @@ import {
 } from "react-icons/ai";
 import { FaRegUser } from "react-icons/fa";
 import { BsSearch } from "react-icons/bs";
+import { Modal } from "@mui/material";
 
 import FetchCollection from "@/Hooks/FetchCollection";
 import Sidebar from "../Sidebar";
+import { Auth } from "@/components";
 
 const MainHeader = () => {
   const { data: products } = FetchCollection("products");
@@ -20,9 +22,13 @@ const MainHeader = () => {
   const [searchInput, setSearchInput] = useState("");
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [sidebar, setSidebar] = useState(false);
+  const [authModal, setAuthModal] = useState(false);
+  // modal functions
+  const HandleOpen = () => setAuthModal(true);
+  const HandleClose = () => setAuthModal(false);
 
   const ListenScrollEvent = () => {
-    window.scrollY > 5 ? setNavColor("#13131a") : setNavColor("transparent");
+    window.scrollY > 10 ? setNavColor("#13131a") : setNavColor("transparent");
   };
 
   useEffect(() => {
@@ -92,6 +98,11 @@ const MainHeader = () => {
         </div>
       )}
 
+      {/* auth modal */}
+      <Modal open={authModal} onClose={HandleClose}>
+        <Auth setAuthModal={setAuthModal} />
+      </Modal>
+
       <div className="my-2">
         <div className="container">
           <div className="flex items-center">
@@ -131,12 +142,15 @@ const MainHeader = () => {
                 {/* user fav */}
                 <li className="hidden lg:block">
                   <div className="flex relative">
-                    <img
+                    {/* <img
                       src="/logo.png"
                       alt=""
                       className="rounded-full h-9 w-9 mt-1 cursor-pointer"
+                    /> */}
+                    <FaRegUser
+                      className="h-7 w-7 mt-1 cursor-pointer"
+                      onClick={HandleOpen}
                     />
-                    <FaRegUser className="h-7 w-7 mt-1 cursor-pointer" />
                     {/* fav items */}
                     <div className="py-1 px-3.5 ml-4 cursor-pointer">
                       <AiOutlineHeart className="h-8 w-8" />

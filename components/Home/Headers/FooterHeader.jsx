@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { Modal } from "@mui/material";
 import Link from "next/link";
 import {
   AiOutlineHeart,
@@ -7,9 +9,19 @@ import {
 import { BsHandbag } from "react-icons/bs";
 import { FaRegUser } from "react-icons/fa";
 
+import { Auth } from "@/components";
+
 const FooterHeader = () => {
+  const [authModal, setAuthModal] = useState(false);
+  // modal functions
+  const HandleOpen = () => setAuthModal(true);
+  const HandleClose = () => setAuthModal(false);
   return (
     <>
+      {/* auth modal */}
+      <Modal open={authModal} onClose={HandleClose}>
+        <Auth setAuthModal={setAuthModal} />
+      </Modal>
       <div className="fixed bottom-0 left-0 right-0 bg-dark z-20 block lg:hidden">
         <div className="container">
           <nav>
@@ -19,13 +31,13 @@ const FooterHeader = () => {
                   <AiOutlineHome className="h-8 w-8" />
                 </Link>
               </li>
-              <li className="flex-1 flex relative flex-col items-center p-4">
+              <li className="flex-1 flex relative flex-col items-center p-4 cursor-pointer">
                 {/* <img
                   src="/logo.png"
                   alt=""
                   className="h-7 w-7 cursor-pointer"
                 /> */}
-                <FaRegUser className="h-7 w-7" />
+                <FaRegUser className="h-7 w-7" onClick={HandleOpen} />
               </li>
               <li className="flex-1 flex relative flex-col items-center p-4">
                 <Link href="/Favourites">

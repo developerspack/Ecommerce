@@ -1,6 +1,5 @@
 import FetchProductsReviews from "@/Hooks/FetchProductsReviews";
 import Deal from "./Deal";
-import MobileNewArrivals from "./MobileNewArrivals";
 import NewCard from "./NewCard";
 
 const NewArrivals = () => {
@@ -12,7 +11,7 @@ const NewArrivals = () => {
   // new
   const SlicedNew = products.slice(0, 6);
 
-  console.log(products);
+  // console.log(products);
   return (
     <div className="container">
       <div className="flex justify-between mb-8 mt-8">
@@ -23,20 +22,15 @@ const NewArrivals = () => {
           New Arriavals
         </h2>
       </div>
-      <div className="block lg:flex">
-        <div className="justify-center items-center flex mb-6 lg:mb-0">
+      <div className="block xl:flex">
+        <div className="justify-center items-center flex mb-6 xl:mb-0">
           {SlicedDeal.map((deal) => (
             <Deal {...deal} />
           ))}
         </div>
-        <div className="md:ml-24 lg:grid grid-cols-2 hidden">
+        <div className="grid md:grid-cols-2 sm:grid-cols-1 md:pr-0 pr-8 gap-2">
           {SlicedNew.map((newArrivals) => (
             <NewCard {...newArrivals} />
-          ))}
-        </div>
-        <div className="md:ml-24 lg:hidden">
-          {SlicedNew.map((newArrivals) => (
-            <MobileNewArrivals {...newArrivals} />
           ))}
         </div>
       </div>
