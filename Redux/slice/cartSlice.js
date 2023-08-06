@@ -36,9 +36,26 @@ const cartSlice = createSlice({
         AddToToast(action.payload.imageUrl, action.payload.Name, "Cart");
       }
     },
+    REMOVE_FROM_CART: (state, action) => {
+      const index = state.items.findIndex(
+        (cartItem) => cartItem.id === action.payload.id
+      );
+
+      let newBasket = [...state.items];
+
+      if (index >= 0) {
+        newBasket.splice(index, 1);
+      }
+      state.items = newBasket;
+    },
   },
 });
 
-export const { hydrateCart, ADD_TO_CART } = cartSlice.actions;
+export const { hydrateCart, ADD_TO_CART, REMOVE_FROM_CART } = cartSlice.actions;
+
+// EXPORT SPECIFIC ITEMS
+export const SelectItems = (state) => state.cart.items;
+export const SelectTotal = (state) =>
+  state.cart.items.reduce((total, item) => total + item.Price * item.qty, 0);
 
 export default cartSlice.reducer;

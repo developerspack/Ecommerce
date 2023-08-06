@@ -25,7 +25,7 @@ const AddToToast = (imageUrl, Name, State) => {
         <Link href={State === "Cart" ? "/Checkout" : "/Favourites"}>
           <button
             className="bg-primary text-black cursor-pointer rounded text-center p-2
-          px-8 py-2 w-full flex items-center justify-center text-base"
+          px-8 py-2 w-full flex items-center justify-center text-base gap-2"
           >
             {State === "Cart" ? (
               <>

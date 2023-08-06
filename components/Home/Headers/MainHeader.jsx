@@ -16,12 +16,13 @@ import { toast } from "react-toastify";
 
 import FetchCollection from "@/Hooks/FetchCollection";
 import Sidebar from "../Sidebar";
-import { Auth } from "@/components";
+import { Auth, DropDownCart } from "@/components";
 import {
   REMOVE_ACTIVE_USER,
   selectUserImageUrl,
 } from "@/Redux/slice/authSlice";
 import { auth } from "@/utils/firebase";
+import { SelectItems, SelectTotal } from "@/Redux/slice/cartSlice";
 
 const MainHeader = () => {
   const { data: products } = FetchCollection("products");
@@ -31,12 +32,15 @@ const MainHeader = () => {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [sidebar, setSidebar] = useState(false);
   const [authModal, setAuthModal] = useState(false);
+  const [dropDownCart, setDropDownCart] = useState(false);
   // modal functions
   const HandleOpen = () => setAuthModal(true);
   const HandleClose = () => setAuthModal(false);
 
   // redux selector
   const userImageUrl = useSelector(selectUserImageUrl);
+  const Total = useSelector(SelectTotal);
+  const items = useSelector(SelectItems);
 
   // redux dispatch
   const dispatch = useDispatch();
@@ -254,7 +258,10 @@ const MainHeader = () => {
                 )}
                 {/* cart */}
                 <li>
-                  <div className="space-x-2 flex relative mr-3 cursor-pointer">
+                  <div
+                    className="space-x-2 flex relative mr-3 cursor-pointer"
+                    onClick={() => setDropDownCart(true)}
+                  >
                     <div className="py-1 px-3.5">
                       <AiOutlineShoppingCart className="h-8 w-8" />
                       <div
@@ -262,16 +269,25 @@ const MainHeader = () => {
                        bg-primary pl-2 -top-2 right-0 rounded-full text-2xl flex 
                        items-center justify-center"
                       >
-                        9
+                        {items.length}
                       </div>
                     </div>
                   </div>
                 </li>
-                <li className="text-lg cursor-pointer hidden lg:block">
+                <li
+                  className="text-lg cursor-pointer hidden lg:block"
+                  onClick={() => setDropDownCart(true)}
+                >
                   <div className="text-gray-400 text-base">Total</div>
-                  <div className="text-sm">$122</div>
+                  <div className="text-sm">Ksh.{Total}</div>
                 </li>
               </ul>
+              {dropDownCart && (
+                <DropDownCart
+                  setDropDownCart={setDropDownCart}
+                  setAuthModal={setAuthModal}
+                />
+              )}
             </div>
           </div>
         </div>
