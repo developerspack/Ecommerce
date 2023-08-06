@@ -2,6 +2,10 @@ import { Rating } from "@mui/material";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { AiFillStar } from "react-icons/ai";
+import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
+
+import { ADD_TO_CART } from "@/Redux/slice/cartSlice";
 
 const DealCard = ({
   id,
@@ -16,6 +20,32 @@ const DealCard = ({
   reviewers,
 }) => {
   const router = useRouter();
+  // dispatch function
+  const dispatch = useDispatch();
+
+  // add to cart
+  const AddToCart = () => {
+    if (productNo === 0) {
+      toast.error("Item Out of Stock. Please another product");
+    } else {
+      dispatch(
+        ADD_TO_CART({
+          id,
+          Name,
+          Price,
+          Discount,
+          productNo,
+          Description,
+          Brand,
+          imageUrl,
+          rating,
+          reviewers,
+          qty: 1,
+          toast: true,
+        })
+      );
+    }
+  };
   return (
     <div>
       <div className="my-2">
@@ -72,7 +102,7 @@ const DealCard = ({
       <div
         className="text-center pt-3 text-black tracking-wide  text-xl font-bold cursor-pointer
         w-full h-12 bg-primary rounded-lg mt-4"
-        onClick={() => {}}
+        onClick={AddToCart}
       >
         Add To Cart
       </div>

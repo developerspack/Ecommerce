@@ -8,14 +8,36 @@ import {
 } from "react-icons/ai";
 import { BsHandbag } from "react-icons/bs";
 import { FaRegUser } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
+import { signOut } from "firebase/auth";
 
 import { Auth } from "@/components";
+import {
+  REMOVE_ACTIVE_USER,
+  selectUserImageUrl,
+} from "@/Redux/slice/authSlice";
+import { toast } from "react-toastify";
+import { auth } from "@/utils/firebase";
 
 const FooterHeader = () => {
   const [authModal, setAuthModal] = useState(false);
   // modal functions
   const HandleOpen = () => setAuthModal(true);
   const HandleClose = () => setAuthModal(false);
+
+  // redux selector
+  const userImageUrl = useSelector(selectUserImageUrl);
+
+  // dispatch function
+  const dispatch = useDispatch();
+
+  // logout user
+  const Logout = () => {
+    signOut(auth).then(() => {
+      dispatch(REMOVE_ACTIVE_USER());
+      toast.success("Logout Successfully");
+    });
+  };
   return (
     <>
       {/* auth modal */}
@@ -32,12 +54,16 @@ const FooterHeader = () => {
                 </Link>
               </li>
               <li className="flex-1 flex relative flex-col items-center p-4 cursor-pointer">
-                {/* <img
-                  src="/logo.png"
-                  alt=""
-                  className="h-7 w-7 cursor-pointer"
-                /> */}
-                <FaRegUser className="h-7 w-7" onClick={HandleOpen} />
+                {userImageUrl ? (
+                  <img
+                    src={userImageUrl}
+                    onClick={Logout}
+                    alt=""
+                    className="h-7 w-7 cursor-pointer rounded-full"
+                  />
+                ) : (
+                  <FaRegUser className="h-7 w-7" onClick={HandleOpen} />
+                )}
               </li>
               <li className="flex-1 flex relative flex-col items-center p-4">
                 <Link href="/Favourites">

@@ -10,10 +10,18 @@ import {
 import { FaRegUser } from "react-icons/fa";
 import { BsSearch } from "react-icons/bs";
 import { Modal } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { signOut } from "firebase/auth";
+import { toast } from "react-toastify";
 
 import FetchCollection from "@/Hooks/FetchCollection";
 import Sidebar from "../Sidebar";
 import { Auth } from "@/components";
+import {
+  REMOVE_ACTIVE_USER,
+  selectUserImageUrl,
+} from "@/Redux/slice/authSlice";
+import { auth } from "@/utils/firebase";
 
 const MainHeader = () => {
   const { data: products } = FetchCollection("products");
@@ -26,6 +34,12 @@ const MainHeader = () => {
   // modal functions
   const HandleOpen = () => setAuthModal(true);
   const HandleClose = () => setAuthModal(false);
+
+  // redux selector
+  const userImageUrl = useSelector(selectUserImageUrl);
+
+  // redux dispatch
+  const dispatch = useDispatch();
 
   const ListenScrollEvent = () => {
     window.scrollY > 10 ? setNavColor("#13131a") : setNavColor("transparent");
@@ -73,6 +87,14 @@ const MainHeader = () => {
   }, [searchInput]);
 
   // console.log(filteredProducts);
+
+  // Logout
+  const Logout = () => {
+    signOut(auth).then(() => {
+      dispatch(REMOVE_ACTIVE_USER());
+      toast.success("Logout Successfully");
+    });
+  };
 
   return (
     <header
@@ -142,15 +164,19 @@ const MainHeader = () => {
                 {/* user fav */}
                 <li className="hidden lg:block">
                   <div className="flex relative">
-                    {/* <img
-                      src="/logo.png"
-                      alt=""
-                      className="rounded-full h-9 w-9 mt-1 cursor-pointer"
-                    /> */}
-                    <FaRegUser
-                      className="h-7 w-7 mt-1 cursor-pointer"
-                      onClick={HandleOpen}
-                    />
+                    {userImageUrl ? (
+                      <img
+                        src={userImageUrl}
+                        onClick={Logout}
+                        alt=""
+                        className="rounded-full h-9 w-9 mt-1 cursor-pointer"
+                      />
+                    ) : (
+                      <FaRegUser
+                        className="h-7 w-7 mt-1 cursor-pointer"
+                        onClick={HandleOpen}
+                      />
+                    )}
                     {/* fav items */}
                     <div className="py-1 px-3.5 ml-4 cursor-pointer">
                       <AiOutlineHeart className="h-8 w-8" />

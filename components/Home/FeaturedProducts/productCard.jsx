@@ -6,6 +6,10 @@ import {
   AiOutlineHeart,
   AiOutlineShoppingCart,
 } from "react-icons/ai";
+import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
+
+import { ADD_TO_CART } from "@/Redux/slice/cartSlice";
 
 const productCard = ({
   id,
@@ -20,6 +24,32 @@ const productCard = ({
   reviewers,
 }) => {
   const router = useRouter();
+  // dispatch function
+  const dispatch = useDispatch();
+
+  // add to cart
+  const AddToCart = () => {
+    if (productNo === 0) {
+      toast.error("Item Out of Stock. Please another product");
+    } else {
+      dispatch(
+        ADD_TO_CART({
+          id,
+          Name,
+          Price,
+          Discount,
+          productNo,
+          Description,
+          Brand,
+          imageUrl,
+          rating,
+          reviewers,
+          qty: 1,
+          toast: true,
+        })
+      );
+    }
+  };
   return (
     <div className="w-full h-auto bg-cards rounded-lg shadow-sm relative">
       {/* image */}
@@ -78,6 +108,7 @@ const productCard = ({
         <AiOutlineShoppingCart
           className="cursor-pointer h-[35px] w-[35px] lg:h-[45px] lg:w-[45px]
       hover:text-black hover:bg-primary hover:p-1 rounded-md"
+          onClick={AddToCart}
         />
       </div>
     </div>

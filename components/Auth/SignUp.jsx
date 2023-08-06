@@ -18,6 +18,7 @@ import {
 } from "firebase/firestore";
 import { toast } from "react-toastify";
 import { getDownloadURL, ref, uploadString } from "firebase/storage";
+import { useDispatch } from "react-redux";
 
 import { auth, db, storage } from "@/utils/firebase";
 
@@ -32,13 +33,24 @@ const SignUp = ({ setActiveComponent, close }) => {
 
   const FilePickerRef = useRef(null);
 
+  // redux dispatch fn
+  const dispatch = useDispatch();
+
   // login with google
   const provider = new GoogleAuthProvider();
   const SignInWithGoogle = () => {
     setIsLoading(true);
     signInWithPopup(auth, provider)
       .then((result) => {
-        // redux UserStae
+        // redux UserState
+        dispatch(
+          SET_ACTIVE_USER({
+            userName: result.user.displayName,
+            userEmail: result.user.email,
+            userImageUrl: result.user.photoURL,
+            userID: result.user.uid,
+          })
+        );
         const GetUser = async () => {
           const DocRef = doc(db, "users", result.user.uid);
           const DocSnap = await getDoc(DocRef);
