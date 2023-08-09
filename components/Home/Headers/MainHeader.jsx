@@ -23,10 +23,11 @@ import {
 } from "@/Redux/slice/authSlice";
 import { auth } from "@/utils/firebase";
 import { SelectItems, SelectTotal } from "@/Redux/slice/cartSlice";
+import { SelectFavItems } from "@/Redux/slice/favSlice";
 
 const MainHeader = () => {
   const { data: products } = FetchCollection("products");
-  const [navColor, setNavColor] = useState("transparent");
+  const [navBarScroll, setNavBarScroll] = useState(false);
   const [search, setSearch] = useState(false);
   const [searchInput, setSearchInput] = useState("");
   const [filteredProducts, setFilteredProducts] = useState([]);
@@ -41,23 +42,20 @@ const MainHeader = () => {
   const userImageUrl = useSelector(selectUserImageUrl);
   const Total = useSelector(SelectTotal);
   const items = useSelector(SelectItems);
+  const FavItems = useSelector(SelectFavItems);
 
   // redux dispatch
   const dispatch = useDispatch();
 
   const ListenScrollEvent = () => {
-    window.scrollY > 10 ? setNavColor("#13131a") : setNavColor("transparent");
+    window.scrollY > 10 ? setNavBarScroll(true) : setNavBarScroll(false);
   };
 
   useEffect(() => {
-    window.addEventListener(
-      "scroll",
-
-      ListenScrollEvent()
-    );
+    window.addEventListener("scroll", ListenScrollEvent);
 
     return () => {
-      window.removeEventListener("scroll", ListenScrollEvent());
+      window.removeEventListener("scroll", ListenScrollEvent);
     };
   }, []);
 
@@ -102,10 +100,9 @@ const MainHeader = () => {
 
   return (
     <header
-      style={{
-        backgroundColor: navColor,
-        transition: "all, 1s",
-      }}
+      className={` sticky -top-1 z-40 p-2 ${
+        navBarScroll === true ? "bg-[#13131a]" : "bg-transparent"
+      } `}
     >
       {/* sidebar */}
       {sidebar && (
@@ -141,7 +138,11 @@ const MainHeader = () => {
               />
               <div className="relative mr-6">
                 <Link href="/">
-                  <img src="/logo.png" alt="" className="h-[96px] w-24" />
+                  <img
+                    src="/logo.png"
+                    alt=""
+                    className="lg:h-[96px] lg:w-24 h-16 w-16"
+                  />
                 </Link>
               </div>
               <div className="hidden lg:block">
@@ -189,7 +190,7 @@ const MainHeader = () => {
                     bg-primary pl-2 -top-2 right-1 rounded-full text-2xl flex items-center
                     justify-center"
                       >
-                        9
+                        {FavItems.length}
                       </div>
                     </div>
                   </div>

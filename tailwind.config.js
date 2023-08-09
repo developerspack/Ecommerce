@@ -15,6 +15,7 @@ module.exports = {
         primary: "#4acd8d",
         cards: "#1f1f1f",
         dark: "#1f1f1f",
+        linkCard: "#82808010",
         "main-bg": "#FAFBFB",
         "main-dark-bg": "#20232A",
         "secondary-dark-bg": "#33373E",

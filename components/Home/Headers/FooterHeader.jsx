@@ -18,6 +18,8 @@ import {
 } from "@/Redux/slice/authSlice";
 import { toast } from "react-toastify";
 import { auth } from "@/utils/firebase";
+import { SelectItems } from "@/Redux/slice/cartSlice";
+import { SelectFavItems } from "@/Redux/slice/favSlice";
 
 const FooterHeader = () => {
   const [authModal, setAuthModal] = useState(false);
@@ -27,6 +29,8 @@ const FooterHeader = () => {
 
   // redux selector
   const userImageUrl = useSelector(selectUserImageUrl);
+  const items = useSelector(SelectItems);
+  const FavItems = useSelector(SelectFavItems);
 
   // dispatch function
   const dispatch = useDispatch();
@@ -74,7 +78,7 @@ const FooterHeader = () => {
                    items-center justify-center
                     "
                   >
-                    10
+                    {FavItems.length}
                   </div>
                 </Link>
               </li>
@@ -87,7 +91,7 @@ const FooterHeader = () => {
                    items-center justify-center
                     "
                   >
-                    10
+                    {items.length}
                   </div>
                 </Link>
               </li>

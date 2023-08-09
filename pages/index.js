@@ -18,7 +18,7 @@ export default function Home() {
   return (
     <div className="text-white">
       <Head>
-        <title>Home</title>
+        <title>Dp Shop | Home</title>
         <link rel="icon" href="/logo.png" />
       </Head>
       <div>

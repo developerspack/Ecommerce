@@ -48,6 +48,7 @@ const AddToToast = (imageUrl, Name, State) => {
       style: {
         backgroundColor: "#1f1f1f",
         color: "#ffff",
+        fontFamily: "Poppins, sans-serif",
         height: "auto",
       },
       hideProgressBar: false,

@@ -10,6 +10,7 @@ import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 
 import { ADD_TO_CART } from "@/Redux/slice/cartSlice";
+import { ADD_TO_FAV } from "@/Redux/slice/favSlice";
 
 const NewCard = ({
   id,
@@ -50,6 +51,22 @@ const NewCard = ({
         })
       );
     }
+  };
+
+  // add to fav
+  const AddToFav = () => {
+    dispatch(
+      ADD_TO_FAV({
+        id,
+        Name,
+        Price,
+        Discount,
+        Description,
+        Brand,
+        imageUrl,
+        toast: true,
+      })
+    );
   };
   return (
     <div
@@ -110,7 +127,10 @@ const NewCard = ({
         <div className="absolute bottom-3 ml-3 flex items-center w-[96%]">
           <div className="text-primary font-light text-2xl">Ksh.{Price}</div>
           <div className="ml-auto flex">
-            <AiOutlineHeart className="cursor-pointer h-9 w-12 hover:text-black hover:bg-primary rounded-md" />
+            <AiOutlineHeart
+              className="cursor-pointer h-9 w-12 hover:text-black hover:bg-primary rounded-md"
+              onClick={AddToFav}
+            />
             <AiOutlineShoppingCart
               className="cursor-pointer h-9 w-12 hover:text-black hover:bg-primary rounded-md"
               onClick={AddToCart}

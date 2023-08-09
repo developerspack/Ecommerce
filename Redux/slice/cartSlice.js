@@ -36,6 +36,28 @@ const cartSlice = createSlice({
         AddToToast(action.payload.imageUrl, action.payload.Name, "Cart");
       }
     },
+    // increase and decrease items qty
+    UPDATEQTY: (state, action) => {
+      const index = state.items.findIndex(
+        (cartItem) => cartItem.id === action.payload.id
+      );
+
+      let newBasket = [...state.items];
+
+      if (index >= 0) {
+        if (action.payload.qty >= 1) {
+          newBasket[index] = action.payload;
+          state.items = newBasket;
+        } else {
+          newBasket.splice(index, 1);
+          state.items = newBasket;
+        }
+      } else {
+        console.log("Product Not Presesent in the cart");
+      }
+    },
+
+    // remove item from cart
     REMOVE_FROM_CART: (state, action) => {
       const index = state.items.findIndex(
         (cartItem) => cartItem.id === action.payload.id
@@ -48,10 +70,21 @@ const cartSlice = createSlice({
       }
       state.items = newBasket;
     },
+
+    //empty cart
+    EMPTY_CART: (state, action) => {
+      state.items = [];
+    },
   },
 });
 
-export const { hydrateCart, ADD_TO_CART, REMOVE_FROM_CART } = cartSlice.actions;
+export const {
+  hydrateCart,
+  ADD_TO_CART,
+  REMOVE_FROM_CART,
+  EMPTY_CART,
+  UPDATEQTY,
+} = cartSlice.actions;
 
 // EXPORT SPECIFIC ITEMS
 export const SelectItems = (state) => state.cart.items;

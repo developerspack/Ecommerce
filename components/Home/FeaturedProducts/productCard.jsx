@@ -10,6 +10,7 @@ import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 
 import { ADD_TO_CART } from "@/Redux/slice/cartSlice";
+import { ADD_TO_FAV } from "@/Redux/slice/favSlice";
 
 const productCard = ({
   id,
@@ -49,6 +50,22 @@ const productCard = ({
         })
       );
     }
+  };
+
+  // add to fav
+  const AddToFav = () => {
+    dispatch(
+      ADD_TO_FAV({
+        id,
+        Name,
+        Price,
+        Discount,
+        Description,
+        Brand,
+        imageUrl,
+        toast: true,
+      })
+    );
   };
   return (
     <div className="w-full h-auto bg-cards rounded-lg shadow-sm relative">
@@ -104,6 +121,7 @@ const productCard = ({
         <AiOutlineHeart
           className="cursor-pointer h-[35px] w-[35px] lg:h-[45px] lg:w-[45px]
         hover:text-black hover:bg-primary hover:p-1 rounded-md"
+          onClick={AddToFav}
         />
         <AiOutlineShoppingCart
           className="cursor-pointer h-[35px] w-[35px] lg:h-[45px] lg:w-[45px]
