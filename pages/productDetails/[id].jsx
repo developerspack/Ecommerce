@@ -4,7 +4,8 @@ import { CirclesWithBar } from "react-loader-spinner";
 import { useState } from "react";
 
 import FetchProductsReviews from "@/Hooks/FetchProductsReviews";
-import { MainHeader, Product } from "@/components";
+import { MainHeader, Product, ProductRating } from "@/components";
+import FetchCollection from "@/Hooks/FetchCollection";
 
 const productDetails = () => {
   const [active, setActive] = useState(true);
@@ -13,7 +14,9 @@ const productDetails = () => {
   const { id } = router.query;
 
   const { products, loading } = FetchProductsReviews("products");
+  const { data } = FetchCollection("reviews");
   const FilterProducts = products.filter((item) => item.id === id);
+  const FilterReviews = data.filter((item) => item.productID === id);
 
   return (
     <div className="text-white">
@@ -45,10 +48,10 @@ const productDetails = () => {
                   Loading...
                 </h2>
               </div>
-              <p className="w-1/3 text-center hidden lg:block">
-                This May Take a few seconds. Please don't close this page.
-              </p>
             </div>
+            <p className="w-1/3 text-center hidden lg:block">
+              This May Take a few seconds. Please don't close this page.
+            </p>
           </div>
         ) : (
           <div className="py-6 mb-20 p-5 lg:mb-10 bg-dark mt-6">
@@ -92,7 +95,13 @@ const productDetails = () => {
               </>
             )}
             {/* ratings/reviews */}
-            {active === false && <></>}
+            {active === false && (
+              <div className="grid grid-cols-1 md:grid-cols-2 md:gap-2">
+                {FilterReviews.map((item) => (
+                  <ProductRating {...item} />
+                ))}
+              </div>
+            )}
           </div>
         )}
       </div>
