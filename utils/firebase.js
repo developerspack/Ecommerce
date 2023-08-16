@@ -4,7 +4,7 @@ import { getAuth } from "firebase/auth";
 import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCMX5Slo6N_BGXLaXVkA0x0RHvaQVfF-KU",
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_APIKEY,
   authDomain: "ytecommerce-f9b8c.firebaseapp.com",
   projectId: "ytecommerce-f9b8c",
   storageBucket: "ytecommerce-f9b8c.appspot.com",

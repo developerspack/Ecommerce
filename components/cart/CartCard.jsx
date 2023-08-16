@@ -15,6 +15,7 @@ const CartCard = ({
   imageUrl,
   rating,
   reviewers,
+  Category,
   qty,
 }) => {
   const dispatch = useDispatch();
@@ -32,6 +33,7 @@ const CartCard = ({
         productNo,
         Description,
         Brand,
+        Category,
         imageUrl,
         rating,
         reviewers,
@@ -50,6 +52,7 @@ const CartCard = ({
         productNo,
         Description,
         Brand,
+        Category,
         imageUrl,
         rating,
         reviewers,

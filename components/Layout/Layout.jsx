@@ -27,7 +27,7 @@ const Layout = ({ children }) => {
       localStorage.setItem("cart", JSON.stringify(store.getState().cart));
     });
     let cart = localStorage.getItem("cart");
-    cart = auth
+    cart = cart
       ? JSON.parse(cart)
       : {
           items: [],

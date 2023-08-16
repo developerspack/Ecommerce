@@ -9,11 +9,11 @@ const CheckoutProducts = () => {
   return (
     <>
       <div
-        className="bg-dark lg:w-[600px] lg:rounded-l-xl rounded-t-xl
+        className="bg-dark lg:w-[600px] md:rounded-l-xl rounded-t-xl
      p-3 h-full justify-center items-center"
       >
         <h3 className="mb-3 text-primary text-center font-extrabold text-3xl">
-          Chckout Summary
+          Checkout Summary
         </h3>
         <div className="h-[500px] bg-[#212323] pt-4 rounded-lg overflow-auto scrollbar-design">
           {Products.map((product) => (

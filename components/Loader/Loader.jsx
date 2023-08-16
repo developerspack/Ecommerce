@@ -4,7 +4,7 @@ const Loader = () => {
   return (
     <div className="fixed w-full space-y-2 h-screen z-50 bg-dark flex flex-col items-center justify-center">
       <div className="mt-6 rounded-lg mb-24 md:mb-12 flex">
-        <div className="flex items-center gap-3">
+        <div className="flex items-center justify-center gap-3">
           <CirclesWithBar
             height={70}
             width={70}

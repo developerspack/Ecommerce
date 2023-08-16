@@ -4,7 +4,7 @@ import { CirclesWithBar } from "react-loader-spinner";
 import { useState } from "react";
 
 import FetchProductsReviews from "@/Hooks/FetchProductsReviews";
-import { MainHeader, Product, ProductRating } from "@/components";
+import { FooterHeader, MainHeader, Product, ProductRating } from "@/components";
 import FetchCollection from "@/Hooks/FetchCollection";
 
 const productDetails = () => {
@@ -105,6 +105,7 @@ const productDetails = () => {
           </div>
         )}
       </div>
+      <FooterHeader />
     </div>
   );
 };

@@ -25,7 +25,7 @@ const FetchCollection = (collectionName) => {
       toast.error(error.massage);
       setLoading(false);
     }
-  });
+  }, []);
   return { data, loading };
 };
 

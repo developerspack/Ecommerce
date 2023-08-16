@@ -37,6 +37,7 @@ const DealCard = ({
           productNo,
           Description,
           Brand,
+          Category,
           imageUrl,
           rating,
           reviewers,
