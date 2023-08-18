@@ -51,6 +51,7 @@ function onApprove(data) {
           productName: product.Name,
           productNo: product.productNo,
           productQty: product.qty,
+          imageUrl: product.imageUrl
         };
         extraItems.push(Item);
       }
