@@ -44,60 +44,61 @@ const FooterHeader = () => {
   };
   return (
     <>
-      {/* auth modal */}
-      <Modal open={authModal} onClose={HandleClose}>
-        <Auth setAuthModal={setAuthModal} />
+      <Modal
+        open={authModal}
+        onClose={HandleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <>
+          <Auth closeSigninup={setAuthModal} />
+        </>
       </Modal>
-      <div className="fixed bottom-0 left-0 right-0 bg-dark z-20 block lg:hidden">
+      <div className="fixed bottom-0 w-full h-16 bg-dark z-20 block lg:hidden overflow-x-hidden">
         <div className="container">
           <nav>
             <ul className="flex items-center">
               <li className="flex-1 flex relative flex-col items-center p-4">
-                <Link href="/">
-                  <AiOutlineHome className="h-8 w-8" />
+                <Link href={"/"}>
+                  <AiOutlineHome
+                    className="h-8 w-8 cursor-pointer"
+                    // onClick={() => setSidebar(true)}
+                  />
                 </Link>
+                {/* <span>Home</span> */}
               </li>
               <li className="flex-1 flex relative flex-col items-center p-4 cursor-pointer">
                 {userImageUrl ? (
                   <img
                     src={userImageUrl}
+                    className="rounded-full h-8 w-8"
                     onClick={Logout}
-                    alt=""
-                    className="h-7 w-7 cursor-pointer rounded-full"
                   />
                 ) : (
                   <FaRegUser className="h-7 w-7" onClick={HandleOpen} />
                 )}
               </li>
               <li className="flex-1 flex relative flex-col items-center p-4">
-                <Link href="/Favourites">
-                  <AiOutlineHeart className="h-8 w-8" />
-                  <div
-                    className="absolute h-[26px] text-center p-2 text-black bg-primary pl-2 top-1
-                  right-[7%] sm:right-[30%] w-[26px] rounded-full text-xl flex
-                   items-center justify-center
-                    "
-                  >
-                    {FavItems.length}
+                <Link href="/Favourites" className="relative">
+                  <AiOutlineHeart className="h-8 w-8 cursor-pointer" />
+                  {/* <span>Favourites</span> */}
+                  <div className="absolute h-[26px] text-center p-2 text-black bg-primary -top-2.5 -right-4 w-[26px] rounded-full text-2xl flex items-center justify-center">
+                    {FavItems?.length}
                   </div>
                 </Link>
               </li>
-              <li className="flex-1 flex relative flex-col items-center p-4">
-                <Link href="/Cart">
-                  <AiOutlineShoppingCart className="h-8 w-8" />
-                  <div
-                    className="absolute h-[26px] text-center p-2 text-black bg-primary pl-2 top-1
-                  right-[7%] sm:right-[30%] w-[26px] rounded-full text-xl flex
-                   items-center justify-center
-                    "
-                  >
-                    {items.length}
+              <li className="flex-1 flex flex-col items-center p-4">
+                <Link href={"/Cart"} className="relative">
+                  <AiOutlineShoppingCart className="h-8 w-8 cursor-pointer" />
+                  {/* <span>Cart</span> */}
+                  <div className="absolute h-[26px] text-center p-2 text-black bg-primary -top-2.5 -right-4 w-[26px] rounded-full text-2xl flex items-center justify-center">
+                    {items?.length}
                   </div>
                 </Link>
               </li>
               <li className="flex-1 flex relative flex-col items-center p-4">
                 <Link href="/MyOrders">
-                  <BsHandbag className="h-8 w-8" />
+                  <BsHandbag className="h-8 w-8 cursor-pointer" />
                 </Link>
               </li>
             </ul>

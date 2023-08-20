@@ -12,28 +12,26 @@ import { toast } from "react-toastify";
 import { ADD_TO_CART } from "@/Redux/slice/cartSlice";
 import { ADD_TO_FAV } from "@/Redux/slice/favSlice";
 
-const productCard = ({
+const ProductCard = ({
   id,
   Name,
   Price,
-  Discount,
   productNo,
-  Description,
-  Brand,
   Category,
+  Brand,
+  Description,
   imageUrl,
   rating,
   reviewers,
+  Discount,
 }) => {
-  const router = useRouter();
-  // dispatch function
   const dispatch = useDispatch();
-
-  // add to cart
-  const AddToCart = () => {
-    if (productNo === 0) {
-      toast.error("Item Out of Stock. Please another product");
+  const router = useRouter();
+  const addItemToCart = () => {
+    if (productNo <= 0) {
+      toast.error("Out of Stock. Please Try Another Product.");
     } else {
+      //Sending the product as an action to the REDUX store... the cart slice
       dispatch(
         ADD_TO_CART({
           id,
@@ -54,85 +52,96 @@ const productCard = ({
     }
   };
 
-  // add to fav
-  const AddToFav = () => {
+  const addItemToFav = () => {
+    //Sending the product as an action to the REDUX store... the cart slice
     dispatch(
       ADD_TO_FAV({
         id,
         Name,
         Price,
-        Discount,
-        Description,
+        productNo,
+        Category,
         Brand,
         imageUrl,
+        qty: 1,
         toast: true,
       })
     );
   };
+
   return (
-    <div className="w-full h-auto bg-cards rounded-lg shadow-sm relative">
-      {/* image */}
-      <Image
-        src={imageUrl}
-        height={500}
-        width={500}
-        className="w-full h-[240px] rounded-lg cursor-pointer"
-        onClick={() => router.push(`/productDetails/${id}`)}
-      />
-      {/* ratig initial Price availability */}
-      <div className="mt-2 p-2">
-        <h5 className="text-lg font-semibold line-clamp-1">{Name}</h5>
-        {/* rating */}
-        <div className="flex items-center">
-          <Rating
-            value={rating}
-            readOnly
-            precision={0.5}
-            emptyIcon={<AiFillStar className="text-white" fontSize="inherit" />}
-          />
-          <span className="text-gray-400">({reviewers})</span>
-        </div>
-        {/* price Initial Price */}
-        <div className="py-2 flex items-center justify-between">
-          <div className="p-1">
-            <h5 className="font-bold text-xl">Ksh.{Price}</h5>
-            <h4 className="line-through font-semibold text-lg text-gray-500 pl-3">
-              Ksh.{Price + Discount}
-            </h4>
+    <>
+      <div className="w-full h-auto bg-cards rounded-lg shadow-sm relative">
+        {/* image */}
+        <Image
+          src={imageUrl}
+          alt={Name}
+          width={500}
+          height={500}
+          className="w-full h-[240px] rounded-lg cursor-pointer p-1"
+          onClick={() => router.push(`/productDetails/${id}`)}
+        />
+
+        {/* rating, initial Price, productNo */}
+        <div className="mt-2">
+          {/* name */}
+          <h5 className="text-[20px] font-[600] text-[#ece3e3] clipper-1">
+            {Name}
+          </h5>
+
+          {/* rating */}
+          <div className="flex items-center">
+            <Rating
+              value={rating}
+              readOnly
+              precision={0.5}
+              emptyIcon={
+                <AiFillStar style={{ color: "#fff" }} fontSize="inherit" />
+              }
+            />
+            <div className="text-gray-400 ml-1 mt-1">({reviewers})</div>
           </div>
-          {/* availaility */}
+
+          {/* Price,Initial Price */}
+          <div className="py-2 flex items-center justify-between">
+            <div className="p-1">
+              <h5 className="font-bold text-xl font-Roboto">Ksh.{Price}</h5>
+              <h4 className="font-semibold text-lg text-gray-500 pl-3 mt-[-4px] line-through">
+                Ksh.{Discount + Price}
+              </h4>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex justify-between p-2 items-center">
           {productNo <= 0 ? (
-            <div
-              className="bg-red-500 text-black text-sm font-bold p-1 rounded-lg
-         ml-auto"
-            >
-              Out of Stock
+            <div className="bg-red-500 text-black text-xs font-bold px-2 py-1 rounded-lg">
+              OUT Of STOCK
             </div>
           ) : (
-            <div
-              className="bg-primary text-black text-sm font-bold p-1 rounded-lg
-            ml-auto"
-            >
-              In Stock
+            <div className="bg-green-400 text-black text-xs font-bold px-2 py-1 pt-1.5 rounded-lg">
+              INSTOCK
             </div>
           )}
+          {/* addTo: cart, fav buttons */}
+          <div className="flex justify-end p-2 gap-2">
+            <button>
+              <AiOutlineHeart
+                className="cursor-pointer h-[35px] w-[35px] md:h-[45px] md:w-[45px] hover:p-1 hover:rounded-md hover:text-black hover:bg-primary"
+                onClick={addItemToFav}
+              />
+            </button>
+            <button disabled={productNo <= 0}>
+              <AiOutlineShoppingCart
+                className="cursor-pointer h-[35px] w-[35px] md:h-[45px] md:w-[45px] disabled:bg-green-300 hover:p-1 hover:rounded-md hover:text-black hover:bg-primary"
+                onClick={addItemToCart}
+              />
+            </button>
+          </div>
         </div>
       </div>
-      {/* addTo Button Fav Cart */}
-      <div className="flex justify-end p-2 gap-2">
-        <AiOutlineHeart
-          className="cursor-pointer h-[35px] w-[35px] lg:h-[45px] lg:w-[45px]
-        hover:text-black hover:bg-primary hover:p-1 rounded-md"
-          onClick={AddToFav}
-        />
-        <AiOutlineShoppingCart
-          className="cursor-pointer h-[35px] w-[35px] lg:h-[45px] lg:w-[45px]
-      hover:text-black hover:bg-primary hover:p-1 rounded-md"
-          onClick={AddToCart}
-        />
-      </div>
-    </div>
+    </>
   );
 };
 
-export default productCard;
+export default ProductCard;

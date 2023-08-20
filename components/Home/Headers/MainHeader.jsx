@@ -183,7 +183,10 @@ const MainHeader = () => {
                       />
                     )}
                     {/* fav items */}
-                    <div className="py-1 px-3.5 ml-4 cursor-pointer">
+                    <Link
+                      href={"/Favourites"}
+                      className="py-1 px-3.5 ml-4 cursor-pointer"
+                    >
                       <AiOutlineHeart className="h-8 w-8" />
                       <div
                         className="absolute h-[26px] w-[26px] text-black text-center p-2
@@ -192,7 +195,7 @@ const MainHeader = () => {
                       >
                         {FavItems.length}
                       </div>
-                    </div>
+                    </Link>
                   </div>
                 </li>
 
